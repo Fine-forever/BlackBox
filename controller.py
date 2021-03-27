@@ -9,5 +9,5 @@ class controller:
     @classmethod
     def get_instance(cls):
         if not cls._instance:
-            cls._instance = Singleton()
+            cls._instance = controller(user)
         return cls._instance
