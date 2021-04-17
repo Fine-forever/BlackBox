@@ -9,7 +9,7 @@ class black_box:
         self.soup = BeautifulSoup(self.r.text, 'lxml')
     def give_answer(self, x):
         self.r.params = '?sl=ru&tl=en&text='+x+'&op=translate'
-        m = self.soup.find_all('span', jsaction_="click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje")
+        m = self.soup.find_all('span', class_='VIiyi')
         #будет возвращать перевод, брать буквы и сверять со словарём
         print(m)
 
