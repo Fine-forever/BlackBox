@@ -7,8 +7,11 @@ class black_box:
         self.code = 'Никола Тесла'
         self.r = requests.get('https://translate.google.com/')
         self.soup = BeautifulSoup(self.r.text, 'lxml')
+        self.paramz = ''
     def give_answer(self, x):
-        self.r.params = '?sl=ru&tl=en&text='+x+'&op=translate'
+        self.paramz = '?sl=ru&tl=en&text='+x+'&op=translate'
+        self.r = requests.get('https://translate.google.com/', params = self.paramz)
+        self.soup = BeautifulSoup(self.r.text, 'lxml')
         m = self.soup.find_all('span', class_='VIiyi')
         #будет возвращать перевод, брать буквы и сверять со словарём
         print(m)
