@@ -29,10 +29,10 @@ class black_box:
         x = m[0] + m[len(m) - 1]
         x = self.sys[x]
         if(x == self.code):
-            bot.send_message(message.from_user.id, 'Вы нашли Николу Теслу! Вы молодец!')
+            return 'Вы нашли Николу Теслу! Вы молодец!'
             d.finish()
         else:
-            bot.send_message(message.from_user.id, 'Найден ', x)
+            return 'Найден '+ x
 
     @classmethod
     def get_instance(cls):
@@ -71,10 +71,10 @@ def start_message(message):
 @bot.message_handler(content_types=['text'])
 def start_message(message):
     bot.send_message(message.from_user.id, "Поисковая система работает...")
-    i.give_answer(a,d)
+    bot.send_message(message.from_user.id,i.give_answer(a, d))
     if (d.users[message.from_user.id] == "Finish"):
-        brake
+        bot.send_message(message.from_user.id, 'Вы можете посмотреть в переводчике других учёных, для прекращения работы напишите /end')
     else:
         a = message.text
-        
+
 bot.polling()
