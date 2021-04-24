@@ -72,7 +72,7 @@ def start_message(message):
 def start_message(message):
     bot.send_message(message.from_user.id, "Поисковая система работает...")
     i.give_answer(a,d)
-    if (d.users[message.from_user.id] = "Finish"):
+    if (d.users[message.from_user.id] == "Finish"):
         brake
     else:
         a = message.text
