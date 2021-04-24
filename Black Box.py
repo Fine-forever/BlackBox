@@ -76,3 +76,5 @@ def start_message(message):
         brake
     else:
         a = message.text
+        
+bot.polling()
