@@ -68,12 +68,17 @@ def start_message(message):
     a = message.text
     d.play(message.from_user.id)
 
+@bot.message_handler(commands=['end'])
+def end(message):
+    bot.send_message(message.from_user.id, 'Поисковик выключается')
+    brake
+
 @bot.message_handler(content_types=['text'])
 def start_message(message):
     bot.send_message(message.from_user.id, "Поисковая система работает...")
     bot.send_message(message.from_user.id,i.give_answer(a, d))
     if (d.users[message.from_user.id] == "Finish"):
-        bot.send_message(message.from_user.id, 'Вы можете посмотреть в переводчике других учёных, для прекращения работы напишите /end')
+        bot.send_message(message.from_user.id, 'Вы можете посмотреть в поисковике других учёных, для прекращения работы напишите /end')
     else:
         a = message.text
 
