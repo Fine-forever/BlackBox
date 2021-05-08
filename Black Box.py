@@ -1,5 +1,6 @@
 import telebot
 from mtranslate import translate
+import json
 
 class controller:
     _instance = None
@@ -12,15 +13,16 @@ class controller:
     def finish(self, user):
         self.users[user] = "Finish"
     @classmethod
-    def get_instance(cls, user):
+    def get_instance(cls):
         if not cls._instance:
-            cls._instance = controller(user)
+            cls._instance = controller()
         return cls._instance
 
 class black_box:
     _instance = None
     def __init__(self):
-        self.sys = {'Aa':'Алпресе Авиягро','Ab':'Антор Брукало','Ac':'Амер Салага'}#соотношения имён и сочетаний букв
+        with open("names_file.json","r") as read_file:
+            self.sys = json.load(read_file)
         self.code = 'Никола Тесла'
         self.to_translate = ''
     def give_answer(self, x, d):
@@ -44,8 +46,6 @@ API = '1693316060:AAFe5c3xHvy3kGmVyhHlKukFWqzb2ks1Ark'
 
 bot = telebot.TeleBot(API)
 
-a = ""
-y = 0
 i = black_box().get_instance()
 d = controller().get_instance()
 
@@ -65,7 +65,6 @@ def start_message(message):
 def start_message(message):
     d.start(message.from_user.id)
     bot.send_message(message.from_user.id, "Здравствуйте, адмирал. Колонизация Марса прошла почти успешно... Один учёный, а именно Никола Тесла , потерялся среди марсианских учёных. Перед вами поисковая система 'Турбо 2000' с русско-марсианским переводчиком. Поисковик способен принять только одно слово. Найдите Теслу!")
-    a = message.text
     d.play(message.from_user.id)
 
 @bot.message_handler(commands=['end'])
@@ -79,7 +78,5 @@ def start_message(message):
     bot.send_message(message.from_user.id,i.give_answer(a, d))
     if (d.users[message.from_user.id] == "Finish"):
         bot.send_message(message.from_user.id, 'Вы можете посмотреть в поисковике других учёных, для прекращения работы напишите /end')
-    else:
-        a = message.text
 
 bot.polling()
