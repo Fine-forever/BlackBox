@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import telebot
 from mtranslate import translate
 import json
@@ -69,13 +71,12 @@ def start_message(message):
 
 @bot.message_handler(commands=['end'])
 def end(message):
-    bot.send_message(message.from_user.id, 'Поисковик выключается')
-    brake
+    bot.send_message(message.from_user.id, 'Поисковик выключается.. Для повтора игры напишите /start')
 
 @bot.message_handler(content_types=['text'])
 def start_message(message):
     bot.send_message(message.from_user.id, "Поисковая система работает...")
-    bot.send_message(message.from_user.id,i.give_answer(a, d))
+    bot.send_message(message.from_user.id,i.give_answer(message.text, d))
     if (d.users[message.from_user.id] == "Finish"):
         bot.send_message(message.from_user.id, 'Вы можете посмотреть в поисковике других учёных, для прекращения работы напишите /end')
 
