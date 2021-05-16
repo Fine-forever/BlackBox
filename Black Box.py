@@ -29,14 +29,17 @@ class black_box:
         self.to_translate = ''
     def give_answer(self, x, d):
         self.to_translate = x
-        m = translate(self.to_translate,'en')
-        x = m[0] + m[len(m) - 1]
-        x = self.sys[x]
-        if(x == self.code):
-            return 'Вы нашли Николу Теслу! Вы молодец!'
-            d.finish()
-        else:
-            return 'Найден '+ x
+        try:
+            m = translate(self.to_translate,'en')
+            x = m[0] + m[len(m) - 1]
+            x = self.sys[x]
+            if(x == self.code):
+                return 'Вы нашли Николу Теслу! Вы молодец! Вы можете посмотреть в поисковике других учёных, для прекращения работы напишите /end'
+                d.finish()
+            else:
+                return 'Найден '+ x
+        except Exception:
+            return 'Пишите существующие русские слова с большой буквы!'
 
     @classmethod
     def get_instance(cls):
@@ -77,7 +80,5 @@ def end(message):
 def start_message(message):
     bot.send_message(message.from_user.id, "Поисковая система работает...")
     bot.send_message(message.from_user.id,i.give_answer(message.text, d))
-    if (d.users[message.from_user.id] == "Finish"):
-        bot.send_message(message.from_user.id, 'Вы можете посмотреть в поисковике других учёных, для прекращения работы напишите /end')
 
 bot.polling()
